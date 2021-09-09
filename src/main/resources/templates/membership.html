@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Membership</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .navbar a {
+            float: left;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .subnav {
+            float: left;
+            overflow: hidden;
+        }
+
+        .subnav .subnavbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+
+        .navbar a:hover, .subnav:hover .subnavbtn {
+            background-color: green;
+        }
+
+        .subnav-content a {
+            float: left;
+            color: white;
+            text-decoration: none;
+        }
+
+        .subnav-content a:hover {
+            background-color: #eee;
+            color: black;
+        }
+
+        .subnav:hover {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<section>
+    <div class="navbar">
+        <div class="subnav">
+            <a class="subnavbtn" th:href="@{/membership/membership-add}">Add<i class="fa fa-caret-down"></i></a>
+        </div>
+        <div class="subnav">
+            <button class="subnavbtn" onclick="disableItem()">Disable<i class="fa fa-caret-down"></i></button>
+        </div>
+    </div>
+
+    <table id="myTable">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Membership Name</th>
+            <th>Status</th>
+            <th>Dining</th>
+            <th>Takeaway</th>
+            <th>Created Date</th>
+            <th>Expiry Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="membershipItem : ${membershipItems}">
+            <tr id="row-item">
+                <td>
+                    <input type="checkbox" id="checkboxId" name="checkbox">
+                    <label for="checkboxId"></label>
+                </td>
+                <td th:text="${membershipItem.getMembershipName()}"></td>
+                <td th:text="${membershipItem.getMembershipStatus()}"></td>
+                <td th:text="${membershipItem.getDining()}"></td>
+                <td th:text="${membershipItem.getTakeaway()}"></td>
+                <td th:text="${membershipItem.getMembershipCreatedDate()}"></td>
+                <td th:text="${membershipItem.getMembershipExpiryDate()}"></td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</section>
+<script>
+    function disableItem() {
+        let memShpIds = new Array();
+        const table = document.getElementById('myTable');
+        $('#myTable [type="checkbox"]').each(function (i, chk) {
+            if (chk.checked) {
+                memShpIds.push(table.rows.item(i + 1).cells.item(1).innerText);
+            }
+        });
+        console.log('membership Ids' + memShpIds);
+        if (memShpIds.length > 0) {
+            let ids = memShpIds.toString();
+            console.log('Ids' + ids);
+
+            $.ajax({
+                url: "/membership/delete",
+                type: "POST",
+                data: {
+                    items: ids
+                },
+                success: function (row) {
+                    console.log(row);
+                    if (row > 0) {
+                        alert('Successfully updated !')
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1000);
+                    } else if (row <= 0) {
+                        alert('Error in updating !')
+                    }
+                }
+            });
+        }
+    }
+</script>
+</body>
+</html>

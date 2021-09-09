@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Choose Membership</title>
+    <style>
+        .container-fluid{
+            text-align: center;
+        }
+
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body >
+<div class="container-fluid text-center">
+    <form th:action="@{/choose_membership}"   method="post" >
+        <div class="border border-secondary p-3 rounded">
+            <div class="contentContainer">
+                <h1>Pick a membership</h1>
+            </div>
+
+
+            <table class="center">
+                <thead>
+                <tr>
+                    <th>Membership Name</th>
+                    <th>Dining Discount(%)</th>
+                    <th>Takeout Discount(%)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="membership : ${cusMembershipDetails}">
+                    <tr>
+                        <td th:text="${membership.getMembershipName()}">...</td>
+                        <td th:text="${membership.getDiningPercent()}">...</td>
+                        <td th:text="${membership.getTakeawayPercent()}">...</td>
+                    </tr>
+                </th:block>
+
+                </tbody>
+            </table>
+
+            </p>
+            <p>
+                <input type="text" name="membershipName"  class="form-control" placeholder="Enter membership name" required/>
+            </p>
+            <p>
+
+                <button type="submit" name="addMembershipForm"> Book </button>
+            </p>
+
+            <p>
+                <label th:text="${membershipResponse}" ></label>
+            </p>
+        </div>
+    </form>
+</div>
+</body>
+</html>

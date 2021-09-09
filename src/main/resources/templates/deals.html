@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deals of the day</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .navbar a {
+            float: left;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .subnav {
+            float: left;
+            overflow: hidden;
+        }
+
+        .subnav .subnavbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+
+        .navbar a:hover, .subnav:hover .subnavbtn {
+            background-color: green;
+        }
+
+        .subnav-content a {
+            float: left;
+            color: white;
+            text-decoration: none;
+        }
+
+        .subnav-content a:hover {
+            background-color: #eee;
+            color: black;
+        }
+
+        .subnav:hover {
+            display: block;
+        }
+    </style>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<header></header>
+<section>
+    <div class="navbar">
+        <div class="subnav">
+            <a class="subnavbtn" th:href="@{/deals/createdeal}">Add Deal<i class="fa fa-caret-down"></i></a>
+        </div>
+    </div>
+
+    <div>
+        <h2>Today's Deals</h2>
+    </div>
+    <table id="myTable">
+        <thead>
+        <tr>
+            <th>Restaurant Name</th>
+            <th>Deal Type</th>
+            <th>Deal Item</th>
+            <th>Old Price</th>
+            <th>Deal Price</th>
+            <th>Deal End Date</th>
+            <th>Ends in</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="dealOffer : ${dealOffers}">
+            <tr id="deal-item">
+                <td th:text="${dealOffer.getRestaurantName()}"></td>
+                <td th:text="${dealOffer.getDealType()}"></td>
+                <td th:text="${dealOffer.getDealItem()}"></td>
+                <td style="text-decoration: line-through">CA$
+                    <span style="text-decoration: line-through" th:text="${dealOffer.getOldPrice()}"></span>
+                </td>
+                <td style="color: red">CA$
+                    <span style="color: red" th:text="${dealOffer.getDealPrice()}"></span>
+                </td>
+                <td id="countDownDate" th:text="${dealOffer.getDealEndDate()}"></td>
+                <td id="countDownTimer"></td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</section>
+<script type="text/javascript">
+    $(document).ready(function () {
+        setInterval(function () {
+            const table = document.getElementById('myTable');
+            const rowCount = table.rows.length;
+            for (let i = 1; i < rowCount; i++) {
+                const oCells = table.rows.item(i).cells;
+                const cellVal = oCells.item(5).innerText;
+                const dateSplit = cellVal.split(/[- :]/);
+                const counterEndTime = new Date(dateSplit[2] + '-' + dateSplit[1] + '-' + dateSplit[0] + ' ' + dateSplit[3] + ':' + dateSplit[4] + ':' + dateSplit[5]).getTime();
+                const current = new Date().getTime();
+                const diff = counterEndTime - current;
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                const text = days + "d " + hours + "hrs " + minutes + "min " + seconds + "sec ";
+                if(days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0){
+                    oCells.item(6).innerText = "EXPIRED";
+                }
+                else{
+                    oCells.item(6).innerText = text;
+                }
+            }
+        }, 1000);
+    });
+</script>
+
+</body>
+</html>

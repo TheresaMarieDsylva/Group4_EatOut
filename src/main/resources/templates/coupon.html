@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coupons</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .navbar a {
+            float: left;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .subnav {
+            float: left;
+            overflow: hidden;
+        }
+
+        .subnav .subnavbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+
+        .navbar a:hover, .subnav:hover .subnavbtn {
+            background-color: green;
+        }
+
+        .subnav-content a {
+            float: left;
+            color: white;
+            text-decoration: none;
+        }
+
+        .subnav-content a:hover {
+            background-color: #eee;
+            color: black;
+        }
+
+        .subnav:hover {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<section>
+    <div class="navbar">
+        <div class="subnav">
+            <a class="subnavbtn" th:href="@{/coupon/create-coupon}">Add<i class="fa fa-caret-down"></i></a>
+        </div>
+    </div>
+
+    <table id="myTable">
+    <thead>
+    <tr>
+        <th>Coupon Name</th>
+        <th>Coupon Code</th>
+        <th>Qty</th>
+        <th>Amount</th>
+        <th>Description</th>
+        <th>Expiry Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="coupounItem : ${couponItems}">
+        <tr id="row-item">
+            <td th:text="${coupounItem.getCouponName()}"></td>
+            <td th:text="${coupounItem.getCouponCode()}"></td>
+            <td th:text="${coupounItem.getQuantity()}"></td>
+            <td th:text="${coupounItem.getAmount()}"></td>
+            <td th:text="${coupounItem.getDescription()}"></td>
+            <td th:text="${coupounItem.getExpiryDate()}"></td>
+        </tr>
+    </th:block>
+    </tbody>
+    </table>
+</section>
+</body>
+</html>

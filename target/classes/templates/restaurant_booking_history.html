@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking history</title>
+    <style>
+        .container-fluid{
+            text-align: center;
+        }
+
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid text-center">
+    <form th:action="@{/restaurant_booking_history}"   method="post" >
+        <div class="border border-secondary p-3 rounded">
+            <div class="contentContainer">
+                <h1>Booking history</h1>
+            </div>
+            <table class="center">
+                <thead>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>People Attended</th>
+                    <th>Booking Date</th>
+                    <th>Booking Time</th>
+                    <th>Seat Location</th>
+                    <th>Special Requests</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="restaurantBookingHistory : ${restaurantBookingHistory}">
+                    <tr>
+                        <td th:text="${restaurantBookingHistory.getCustomerName()}"></td>
+                        <td th:text="${restaurantBookingHistory.getPeopleAttended()}"></td>
+                        <td th:text="${restaurantBookingHistory.getBookingDate()}"></td>
+                        <td th:text="${restaurantBookingHistory.getBookingTime()}"></td>
+                        <td th:text="${restaurantBookingHistory.getSeatLocation()}"></td>
+                        <td th:text="${restaurantBookingHistory.getSpecialRequests()}"></td>
+                    </tr>
+                </th:block>
+
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>
+</body>
+</html>

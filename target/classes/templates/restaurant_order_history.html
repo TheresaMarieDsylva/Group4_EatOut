@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Takeout history for Restaurant</title>
+    <style>
+        .container-fluid{
+            text-align: center;
+        }
+
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid text-center">
+    <form>
+        <div class="border border-secondary p-3 rounded">
+            <div class="contentContainer">
+                <h1>Takeout history</h1>
+            </div>
+            <table class="center">
+                <thead>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Item Name</th>
+                    <th>Quantity</th>
+                    <th>Date & Time</th>
+                    <th>Bill Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="restaurantOrderHistory : ${restaurantOrderHistory}">
+                    <tr>
+                        <td th:text="${restaurantOrderHistory.getCustomerName()}"></td>
+                        <td th:text="${restaurantOrderHistory.getItemName()}"></td>
+                        <td th:text="${restaurantOrderHistory.getQuantity()}"></td>
+                        <td th:text="${restaurantOrderHistory.getDateAndTime()}"></td>
+                        <td th:text="${restaurantOrderHistory.getBillAmount()}"></td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>
+</body>
+</html>

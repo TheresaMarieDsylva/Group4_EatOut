@@ -1,0 +1,9 @@
+
+[	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(ÃÓÿç
+`	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(õÓéñùÿÿÿÿ
+\
+java:S1106"AMove this left curly brace to the beginning of next line of code.(‹êô¦úÿÿÿÿ
+`	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(øòèíşÿÿÿÿ
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¯„á²
+Z
+java:S1120"DMake this line start after 2 spaces to indent the code consistently.(ÃÓÿç

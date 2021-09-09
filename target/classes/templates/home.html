@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>eatOut home page</title>
+
+</head>
+<body>
+<form action="#" th:action="@{/home}" method="post" style="max-width: 350px; margin: 0 auto;">
+    <i>
+        <span th:text="${loginAuthMessage}"> </span>
+    </i>
+
+    <div align="left">
+        <h1>Welcome <span th:text="${firstName}"> </span></h1>
+    </div>
+
+
+    <div align="center">
+        <h1>eatOUT</h1></div>
+
+    <div align="right">
+        <h2><i>Giving your hunger,</i></h2>
+        <h2><i>a new option</i></h2></div>
+
+    <div th:if="${firstName} == null">
+        <span> <a href="/" th:href="@{/login}"> Login</a> </span>
+    </div>
+
+    <div th:if="${firstName} != null">
+        <span> <a href="/" th:href="@{/}"> Logout</a> </span>
+    </div>
+
+</form>
+</body>
+</html>

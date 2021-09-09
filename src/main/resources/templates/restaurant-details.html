@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' ></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" >
+
+</head>
+<body>
+
+
+
+<div class="card">
+		<div class=" card-header text-center">
+					<h4>My Restaurant details</h4>
+				</div>
+				<div class="card-body">
+					<div>
+						<label><b>Name: &nbsp;</b></label>
+						<span th:text="${restaurant.restaurantName}"></span> 
+					</div>
+					<div>
+						<label><b>Address: &nbsp;</b></label>
+						<span th:text="${restaurant.address}"></span> 
+					</div>
+					<div>
+						<label><b>Phone: &nbsp;</b></label>
+						<span th:text="${restaurant.phoneNumber}"></span> 
+					</div>
+					<div>
+						<label><b>City: &nbsp;</b></label>
+						<span th:text="${restaurant.city}"></span> 
+					</div>
+					<div>
+						<label><b>Country: &nbsp;</b></label>
+						<span th:text="${restaurant.country}"></span> 
+					</div>
+					<div>
+						<label><b>Email: &nbsp;</b></label>
+						<span th:text="${restaurant.email}"></span> 
+					</div>
+	 			</div>		
+		</div>
+		
+		<br><br>
+<div class="card">
+		<div class=" card-header text-center">
+					<h4>Additional details</h4>
+				</div>
+				<div class="card-body">
+					<form th:action="@{/updateRestrntAddtnlDtls}" th:object="${restaurant.restaurantAdditionalDtls}" method="post" >
+						<div class=row>
+				         	<div class="col col-lg-2">
+				                	<label><b>Timings: &nbsp;</b></label>
+				                </div>
+				         </div>
+				        <div class=row>
+				        		<div class="col col-lg-2">
+				                	<label>Opening: &nbsp;</label><input type="text" name="open"  value="00:00:00" th:field="*{strOpeningTime}"/>
+				                	
+				                </div>
+				                <div class="col col-lg-2">
+				                	<label>Closing: &nbsp;</label><input type="text" name="open"  value="00:00:00" th:field="*{strClosingTime}"/>
+				                </div>
+				         </div ><br>
+						<div class=row>
+				         	<div class="col col-lg-2">
+				                	<label><b>Booking options: &nbsp;</b></label>
+				                </div>
+				         </div>
+				        <div class=row>
+				        		<div class="col col-lg-1">
+				                	<label>Dining: &nbsp;</label><input type="checkbox" name="dining"  th:field="*{diningOption}" />
+				                </div>
+				                <div class="col col-lg-2">
+				                	<label>Takeaway: &nbsp;</label><input type="checkbox" name="takeaway" th:field="*{takeAwayOption}" />
+				                </div>
+				         </div >
+				         <div class=row>
+				         	<div class="col col-lg-2">
+				                	<label><b>Seating options: &nbsp;</b></label>
+				                </div>
+				         </div>
+				          <div class=row>
+				        		<div class="col col-lg-1">
+				                	<label>Normal : &nbsp;</label><input type="checkbox" name="normal" th:field="*{commonSeatsOption}" />
+				                </div>
+				                <div class="col col-lg-1">
+				                	<label>Terrace: &nbsp;</label><input type="checkbox" name="terrace" th:field="*{terraceSeatsOption}" />
+				                </div>
+				                <div class="col col-lg-1">
+				                	<label>Window: &nbsp;</label><input type="checkbox" name="window"  th:field="*{windowSeatsOption}"/>
+				                </div>
+				                <div class="col col-lg-1">
+				                	<label>Lounge: &nbsp;</label><input type="checkbox" name="lounge" th:field="*{loungeSeatsOption}" />
+				                </div>
+				        		<div class="col col-lg-1">
+				                	<label>Private: &nbsp;</label><input type="checkbox" name="private" th:field="*{privateSeatsOption}" />
+				                </div>
+				        	</div>
+				        	<div class=row>
+				         		<div class="col col-lg-1">
+				                	<label><b>Cuisine: &nbsp;</b></label>
+				                </div>
+				                </div>
+				                <div class=row>
+				                <div class="col col-lg-4">
+				                	<input type="text" name="cuisine"  class="form-control"  th:field="*{cuisineType}" />
+				                </div>
+				         	</div><br>
+				         	<div class=row>
+				         		<div class="col col-lg-2">
+				                	<label><b>Approximate Cost: &nbsp;</b></label>
+				                </div>
+				                </div>
+				                <div class=row>
+				                <div class="col col-lg-4">
+				                	<input type="text" name="approxPrice"  class="form-control" th:field="*{additionalComments}"/>
+				                </div>
+				         	</div><br>
+				         	<div class=row>
+				         		<div class="col col-lg-2">
+				                	<label><b>Additional Comments: &nbsp;</b></label>
+				                </div>
+				                </div>
+				                <div class=row>
+				                <div class="col col-lg-4">
+				                	<textarea class="form-control" id="comments" rows="3" th:field="*{approxPrice}"></textarea>
+				                </div>
+				         	</div>
+				         
+				        	<br><br>
+				                <div>
+				                <button type="submit" name="updateRestrntAddtnlDtls"> Update Additional details </button> 
+				                </div>
+				     
+    			</form>
+	 			</div>		
+		</div>
+		
+</body>
+</html>

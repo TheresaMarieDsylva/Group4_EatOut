@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Login - eatOut customer</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+        }
+
+
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            width: fit-content;
+            border: 3px solid #ccc;
+            background-color: #f1f1f1;
+            display: inline-flex;
+        }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 23px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 11px 69px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid text-center">
+    <div class="contentContainer">
+        <h1>EatOut - Login</h1>
+    </div>
+    <h3>Click on the respective tab for login!</h3>
+    <div class="tab">
+        <button class="tablinks" onclick="openLogin(event, 'Customer')">Customer</button>
+        <button class="tablinks" onclick="openLogin(event, 'Restaurant')">Restaurant</button>
+        <button class="tablinks" onclick="openLogin(event, 'Admin')">Admin</button>
+    </div>
+    <div class="tabcontent" id="Customer">
+        <span> <a href="/" th:href="@{/customer-login}">Click to navigate to Customer login</a></span>
+    </div>
+    <div class="tabcontent" id="Restaurant">
+        <span> <a href="/" th:href="@{/restaurant-login}">Click to navigate to Restaurant login</a></span>
+    </div>
+    <div class="tabcontent" id="Admin">
+        <span> <a href="/" th:href="@{/admin-login}">Click to navigate to Admin login</a></span>
+    </div>
+</div>
+<script>
+    function openLogin(evt, userType) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace("active", "");
+        }
+        document.getElementById(userType).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
+</body>
+</html>

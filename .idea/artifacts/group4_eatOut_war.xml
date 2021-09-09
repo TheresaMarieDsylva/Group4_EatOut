@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="group4-eatOut:war">
+    <output-path>$PROJECT_DIR$/group4-eatOut/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>group4-eatOut</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="group4-eatOut-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="group4-eatOut:war exploded" />
+    </root>
+  </artifact>
+</component>

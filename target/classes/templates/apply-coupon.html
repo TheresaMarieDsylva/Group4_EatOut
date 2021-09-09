@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Apply coupon</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: fit-content;
+        }
+
+        td, th {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .btnApply {
+            font-size: 16px;
+            border: none;
+            color: white;
+            padding: 6px 14px 5px 14px;
+            background-color: #f44336;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+<section>
+    <table id="myTable">
+        <thead>
+        <tr>
+            <th>Coupon Id</th>
+            <th>Coupon Name</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Expiry Date</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="coupounItem : ${couponItems}">
+            <tr id="row-item">
+                <td id="couponId" th:text="${coupounItem.getCouponId()}"></td>
+                <td id="couponName" th:text="${coupounItem.getCouponName()}"></td>
+                <td id="totalAmount" th:text="${coupounItem.getAmount()}"></td>
+                <td id="description" th:text="${coupounItem.getDescription()}"></td>
+                <td id="expiryDate" th:text="${coupounItem.getExpiryDate()}"></td>
+                <td>
+                    <button id="btnApplyCoupon" class="btnApply" onclick="applyCoupon()">Apply</button>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</section>
+<script type="text/javascript">
+    function applyCoupon() {
+        let path = window.location.pathname;
+        let id = path.split("apply-coupon/");
+        let textArr = new Array();
+
+        $('table tbody tr').click(function () {
+            $(this).closest('tr').find('td').each(function () {
+                let textVal = $(this).text();
+                textArr.push(textVal);
+            });
+
+            let data = {
+                coupon: textArr.toString().split("\n")[0],
+                customerId: id[1].split(";")[0]
+            }
+
+            $.ajax({
+                url: "/coupon/apply",
+                type: "POST",
+                data: data,
+                success: function (row) {
+                    console.log(row);
+                    if (row > 0) {
+                        alert('Successfully added to wallet !');
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1000);
+                    } else if (row <=0) {
+                        alert('Error in applying coupon code !')
+                    }
+                }
+            });
+        });
+    }
+</script>
+</body>
+</html>

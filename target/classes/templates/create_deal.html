@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<div>
+    <div>
+        <div style="text-align: center">
+            <h1>Deals of the day</h1>
+        </div>
+        <div>
+            <table id="myTable" class="center">
+                <tr>
+                    <td><label for="dine">Dine-in</label>
+                        <input type="radio" id="dine" name="dealType" th:value="dining" checked></td>
+                    <td><label for="takeaway">Takeaway</label>
+                        <input type="radio" id="takeaway" name="dealType" th:value="takeaway"></td>
+                </tr>
+                <tr>
+                    <td><label for="country-list">Country</label></td>
+                    <td><select id="country-list" name="country-list">
+                        <option th:each="country : ${countries}" th:text="${country}"></option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td><label for="restaurant-list">Restaurant</label></td>
+                    <td><select id="restaurant-list" name="restaurant-list">
+                        <option th:each="restaurant : ${restaurants}" th:text="${restaurant}"></option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td><label for="restaurant-item">Restaurant Item</label></td>
+                    <td><select id="restaurant-item" name="restaurant-item">
+                        <option th:each="item : ${items}" th:text="${item}"></option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td><label for="item_new_price">Deal price</label></td>
+                    <td><input type="text" id="item_new_price" name="item_new_price" th:name="dealPrice" required/></td>
+                </tr>
+                <tr>
+                    <td><label for="endDate">Deal End Date</label></td>
+                    <td><input type="datetime-local" id="endDate" name="endDate" th:name="dealEndDate" required/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="submit" onclick="submitDeal()"> Submit</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        let selectedDealType = "";
+        let selectedRestaurant = "";
+        let selectedCountry = "";
+        let path = window.location.pathname;
+        let id = path.split("createdeal/");
+
+        $('#country-list').change(function () {
+            updateDropdown();
+        });
+
+        $('input[type=radio][name=dealType]').change(function () {
+            updateDropdown();
+        });
+
+        function updateDropdown() {
+            selectedRestaurant = id[1] !== null ? id[1] : $('#restaurant-list option:selected').text();
+            selectedDealType = $('input[name="dealType"]:checked').val();
+            selectedCountry = $('#country-list option:selected').text();
+
+            let data = {
+                selectedCountry: selectedCountry,
+                selectedRestaurant: selectedRestaurant,
+                selectedDealType: selectedDealType
+            };
+            console.log(data);
+
+            $.ajax({
+                url: "/deals/load-items",
+                type: "POST",
+                data: data,
+                success: function (val) {
+                    $('#restaurant-item').find('option:not(:first)').remove();
+                    $('#restaurant-list').find('option:not(:first)').remove();
+                    let totalItem = val.split("\t");
+                    let rest = totalItem[0].split("\n");
+                    let item = totalItem[1].split("\n");
+                    for (let i = 0; i < item.length; i++) {
+                        console.log(item[i])
+                        $('#restaurant-item').append(new Option(item[i], item[i]));
+                    }
+                    for (let i = 0; i < rest.length; i++) {
+                        console.log(rest[i])
+                        $('#restaurant-list').append(new Option(rest[i], rest[i]));
+                    }
+                }
+            });
+        }
+    });
+
+    function submitDeal() {
+        let data = {
+            selectedRestaurant: $('#restaurant-list option:selected').text(),
+            selectedDealType: $('input[name="dealType"]:checked').val(),
+            newPrice: $('#item_new_price').val(),
+            dealItem: $('#restaurant-item option:selected').text(),
+            endDate: $('#endDate').val()
+        };
+
+        $.ajax({
+            url: "/deals/add",
+            type: "POST",
+            data: data,
+            success: function (row) {
+                console.log(row);
+                if (row > 0) {
+                    alert('Successfully updated !')
+                    setTimeout(function () {
+                        location.href = "/deals";
+                    }, 1000);
+                } else if (row <= 0) {
+                    alert('Error in updating !')
+                }
+            }
+        });
+
+    }
+</script>
+</body>
+</html>

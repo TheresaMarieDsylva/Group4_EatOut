@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src='https://kit.fontawesome.com/a076d05399.js' ></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" >
+	<title>EatOut Customer home</title>
+	<h3>Welcome
+		<label th:text="${session.username}"></label>
+
+	</h3>
+
+	<style>
+		.checked {
+			color: orange;
+		}
+
+		body {
+			font-family: Arial;
+		}
+
+		/* Style the tab */
+		.tab {
+			overflow: hidden;
+			width: auto;
+			border: 3px solid #ccc;
+			background-color: #f1f1f1;
+		}
+
+		/* Style the buttons inside the tab */
+		.tab button {
+			background-color: inherit;
+			float: left;
+			border: none;
+			outline: none;
+			cursor: pointer;
+			padding: 14px 23px;
+			transition: 0.3s;
+			font-size: 17px;
+		}
+
+		/* Change background color of buttons on hover */
+		.tab button:hover {
+			background-color: #ddd;
+		}
+
+		/* Create an active/current tablink class */
+		.tab button.active {
+			background-color: #ccc;
+		}
+
+		/* Style the tab content */
+		.tabcontent {
+			display: none;
+			padding: 11px 69px;
+			border: 1px solid #ccc;
+			border-top: none;
+		}
+        .btnDeal {
+            font-size: 16px;
+            border: none;
+            color: white;
+            padding: 6px 14px 5px 14px;
+            background-color: #f44336;
+            border-radius: 8px;
+        }
+	</style>
+
+</head>
+
+<body>
+
+<div class="tab" align="center">
+	<span> <a href="/" th:href="@{/customer-homepage}"><button class="tablinks">Restaurants	</button> </a></span>
+	<span> <a href="/" th:href="@{/choose_membership}"><button class="tablinks">Membership	</button></a></span>
+	<span> <a href="/" th:href="@{'/coupon/apply-coupon/'+${customerId}}"><button class="tablinks">View Coupons </button></a></span>
+	<span> <a href="/" th:href="@{/customer_profile}"><button class="tablinks">My Account	</button></a></span>
+	<span> <label>Wallet Amount: </label><input class="tablinks" th:value="${wallet}"/> </span>
+</div>
+
+<br><br>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-6 col-md-6 ">
+			<form th:action="@{/restaurantSearchLocation}" method="post" >
+				<div class="row">
+					<div class="col col-lg-3">
+						<label>City:</label><input type="text" name="city" class="form-control" th:value="${city}" />
+					</div>
+					<div class="col col-lg-3">
+						<label>Country:</label><input type="text" name="country" class="form-control"  th:value="${country}"/>
+					</div>
+					<div class="col col-lg-4">
+						<label> <font color="white">update location</font></label>
+						<button type="submit" name="restaurantSearchLocation" class="btn btn-primary" > Update location </button>
+					</div>
+				</div>
+			</form><br>
+			<form th:action="@{/searchRestaurants}" method="post" >
+				<input type="hidden" th:value="${city}" name="city" >
+				<input type="hidden" th:value="${country}" name="country">
+				<div class="row">
+					<div class="col col-lg-5">
+						<input type="search" id="form1" name="searchName" th:value="${searchName}" class="form-control" placeholder="Search for restaurants..." />
+					</div>
+					<button type="submit" name="searchRestaurants" class="btn btn-primary">
+						<i class="fas fa-search"></i>
+					</button>
+				</div>
+			</form>
+		</div>
+		
+		
+		
+		</div></div>
+<br>
+
+<div class="container">
+<div class="row">
+<div class="col-lg-12 col-md-12 ">
+<div class="card">
+		
+				<div class="card-body">
+					<form  th:action="@{/filterRestaurant}" th:object="${restaurantAdditionalDtls}" method="post" >
+						<div class=row>
+				         	<div class="col col-lg-2">
+				                	<label><b>Booking options: &nbsp;</b></label><input type="checkbox" name="booking" th:field="*{bookingFlag}"/>
+				                </div>
+				         
+				        		<div class="col col-lg-2">
+				                	<label>Dining: &nbsp;</label><input type="checkbox" name="dining"  th:field="*{diningOption}" />
+				                </div>
+				                <div class="col col-lg-3">
+				                	<label>Takeaway: &nbsp;</label><input type="checkbox" name="takeaway" th:field="*{takeAwayOption}" />
+				                </div>
+				         </div >
+				         <div class=row>
+				         	<div class="col col-lg-2">
+				                	<label><b>Seating options: &nbsp;</b></label><input type="checkbox" name="seating" th:field="*{seatingFlag}"/>
+				                </div>
+				         
+				        		<div class="col col-lg-2">
+				                	<label>Normal : &nbsp;</label><input type="checkbox" name="normal" th:field="*{commonSeatsOption}"/>
+				                </div>
+				                <div class="col col-lg-2">
+				                	<label>Terrace: &nbsp;</label><input type="checkbox" name="terrace" th:field="*{terraceSeatsOption}" />
+				                </div>
+				                <div class="col col-lg-2">
+				                	<label>Window: &nbsp;</label><input type="checkbox" name="window"  th:field="*{windowSeatsOption}"/>
+				                </div>
+				                <div class="col col-lg-2">
+				                	<label>Lounge: &nbsp;</label><input type="checkbox" name="lounge"  th:field="*{loungeSeatsOption}"/>
+				                </div>
+				        		<div class="col col-lg-2">
+				                	<label>Private: &nbsp;</label><input type="checkbox" name="private"  th:field="*{loungeSeatsOption}"/>
+				                </div>
+				        	
+				        		     <div class="col col-lg-2">
+				        	
+				                
+						<button type="submit" name="filterRestaurants" class="btn btn-primary" > Apply filters </button>
+				                </div>
+						</div>		
+				     
+    			</form>
+	 			</div>		
+		</div>
+</div><br>
+</div>
+</div>
+<br><br>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 col-md-8 ">
+		<div th:if="${#lists.isEmpty(restaurantList)}">
+			<p style="color:#808080">Sorry, No restaurants found...Please try changing the location or updating the filters</p>
+			</div>
+				<div th:each="rest : ${restaurantList}"   class="card mb-3" >
+				<div class="card-body">
+					<h2 class="card-title">
+						<a th:text="${rest.restaurantName}"  th:href="@{'/restaurant-screen/' + ${rest.restaurantId}}"></a>
+					</h2>
+					<div class="row card-text">
+						<div class="col col-lg-3">
+			    	<span th:if="${rest.overallRatings != 0}"
+						  th:each="i : ${#numbers.sequence(1, rest.overallRatings)}"  class="fa fa-star checked"></span>
+							<span th:if="${rest.overallRatings != 5.0}"
+								  th:each="i : ${#numbers.sequence(1, 5.0-rest.overallRatings)}" class="fa fa-star "></span>
+
+						</div>
+						<div class="col col-lg-3">
+							<span th:text="${#lists.size(rest.reviewlist)}"></span> Reviews
+						</div>
+					</div><br>
+					<div class="row">
+						<div class="col col-lg-3">
+							<i style='font-size:24px' class='fas'>&#xf3c5;</i>
+							<span th:text="${rest.address}"></span>
+						</div>
+						<div class="col col-lg-3" th:if="${rest.restaurantAdditionalDtls.openingTime != null}">
+
+			    	<span th:if="${rest.restaurantAdditionalDtls.openingTime != null}"
+						  th:text="${rest.restaurantAdditionalDtls.openingTime}"></span> -
+							<span th:if="${rest.restaurantAdditionalDtls.closingTime != null}"
+								  th:text="${rest.restaurantAdditionalDtls.closingTime}"></span>
+						</div>
+					</div><br>
+					<div class="row">
+						<div class="col col-lg-3">
+							<span th:if="${rest.restaurantAdditionalDtls.cuisineType != null}">Cuisine:</span>
+							<span th:text="${rest.restaurantAdditionalDtls.cuisineType}"></span>
+						</div>
+						<div class="col col-lg-4">
+							<span th:text="${rest.restaurantAdditionalDtls.approxPrice}"></span>
+						</div>
+					</div><br>
+					<div class="row">
+						<div class="col col-lg-3" th:if="${rest.restaurantAdditionalDtls.diningOption}">
+							<label>Dining:</label>
+							<span style="color:green">&#10004;</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col col-lg-3" th:if="${rest.restaurantAdditionalDtls.takeAwayOption}">
+							<label>Takeaway:</label>
+							<span style="color:green">&#10004;</span>
+						</div><br>
+					</div> </div>
+
+			</div>
+		</div>
+
+		<div class="col-lg-4 col-md-4 " style="padding:0px">
+		
+	
+		
+		
+			<div class="card">
+				<div class=" card-header text-center">
+					<h4>Deals of the day</h4>
+				</div>
+                <div class="card-body">
+                    <span class="card-header text-center">
+                        <a href="/" th:href="@{'/deal/apply-deal/'+${customerId}}">
+                        <button class="btnDeal">View all deals </button>
+                        </a>
+                    </span>
+                    <div class="card-body">
+                        <div th:each="dealRestaurant : ${dealRestaurants}">
+                            <a th:text="${dealRestaurant}" href="/"></a><br>
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<br>
+			<div class="card">
+				<div class=" card-header text-center">
+					<h4>Recommended for you</h4>
+				</div>
+				<div class="card-body">
+					<div th:each="recommended : ${recommendedLst}">
+						<a th:text="${recommended.restaurantName}"  th:href="@{'/restaurant-screen/' + ${recommended.restaurantId}}"></a><br>
+						<span th:each="i : ${#numbers.sequence(1, recommended.overallRatings)}"  class="fa fa-star checked"></span>
+						<span th:if="${recommended.overallRatings != 5.0}" th:each="i : ${#numbers.sequence(1, 5.0-recommended.overallRatings)}" class="fa fa-star "></span>
+						<br>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+</body>
+</html>

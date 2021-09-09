@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Update Seating Values</title>
+    <style>
+        .container-fluid{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid text-center">
+    <form th:action="@{/update-seat-values}"  method="post" >
+        <div class="border border-secondary p-3 rounded">
+            <div class="contentContainer">
+                <h1>Update Seating Information</h1>
+            </div>
+            <p>
+                <input type="number" name="c_seat" placeholder="Common Seats" required autofocus/>
+                <input type="number" name="c_seat_price" placeholder="Common Seats Price" required/>
+            </p>
+            <p>
+                <input type="number" name="t_seat"  placeholder="Terrace Seats" required />
+                <input type="number" name="t_seat_price"  placeholder="Terrace Seats Price" required/>
+            </p>
+            <p>
+                <input type="number" name="w_seat" placeholder="Window Seats" required />
+                <input type="number" name="w_seat_price"  placeholder="Window Seats Price" required/>
+            </p>
+            <p>
+                <input type="number" name="l_seat" placeholder="Lounge Seats" required />
+                <input type="number" name="l_seat_price" placeholder="Lounge Seats Price" required/>
+            </p>
+            <p>
+                <input type="number" name="p_seat" placeholder="Private Seats" required />
+                <input type="number" name="p_seat_price" placeholder="Private Seats Price" required/>
+            </p>
+            <p>
+                <button type="submit" name="updateSeatValues"> Update</button>
+            </p>
+            <p>
+                <label th:text="${updateResponse}" ></label>
+            </p>
+
+        </div>
+    </form>
+</div>
+</body>
+</html>

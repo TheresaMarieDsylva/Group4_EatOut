@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Book Table</title>
+    <style>
+        .container-fluid{
+            text-align: center;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div class="container-fluid text-center">
+    <form th:action="@{/book_table}"   method="post" >
+        <div class="border border-secondary p-3 rounded">
+            <div class="contentContainer">
+                <h1>Book Table</h1>
+            </div>
+            <p>
+                <input type="number"  name="people_count" step="1" placeholder="Number of people" th:value="${people_count}"required autofocus>
+            </p>
+
+            <p>
+                <label >Date:</label>
+                <input type="date" name="b_date" th:value="${b_date}">
+            </p>
+            <p>
+                <label >Time:</label>
+                <input type="time"  name="b_time" th:value="${b_time}">
+            </p>
+            <p>
+                <label >Seating Area:</label>
+                <select name="t_area" >
+                    <option value="common_seats" >Common T:(<label th:text="${tableDetails.getCommonSeatCount()}"></label>)&nbsp$(<label th:text="${tableDetails.getCommonSeatPrice()}"></label>)</option>
+                    <option value="terrace_seats" >Terrace T:(<label th:text="${tableDetails.getTerraceSeatCount()}"></label>)&nbsp$(<label th:text="${tableDetails.getTerraceSeatPrice()}"></label>)</option>
+                    <option value="window_seats" >Window T:(<label th:text="${tableDetails.getWindowSeatCount()}"></label>)&nbsp$(<label th:text="${tableDetails.getWindowSeatPrice()}"></label>)</option>
+                    <option value="lounge_seats" >Lounge T:(<label th:text="${tableDetails.getLoungeSeatCount()}"></label>)&nbsp$(<label th:text="${tableDetails.getLoungeSeatPrice()}"></label>)</option>
+                    <option value="private_seats" >Private T:(<label th:text="${tableDetails.getPrivateSeatCount()}"></label>)&nbsp$(<label th:text="${tableDetails.getPrivateSeatPrice()}"></label>)</option>
+                </select>
+                <button type="submit" name="timeAvailable"style="font-size:13px"> <i class="fa fa-refresh"></i> </button>
+            </p>
+            <p>
+                <textarea name="s_requests" rows="3" cols="40"  placeholder="Special requests (or) arrangements" style="resize: none;" > </textarea>
+            </p>
+            <p>
+                <button type="submit" name="bookTableForm"> Book </button>
+            </p>
+            <p>
+                <br><br>
+                <label>T - Number of tables left</label><br>
+                <label>$ - Price for each table</label>
+            </p>
+            <p>
+                <label th:text="${bookingResponse}" ></label>
+            </p>
+        </div>
+    </form>
+</div>
+</body>
+</html>

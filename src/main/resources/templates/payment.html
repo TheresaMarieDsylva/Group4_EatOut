@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment</title>
+    <style>
+        .container-fluid{
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <form  th:action="@{/payment}" method="post" >
+        <div class="border border-secondary p-3 rounded">
+            <p style="vertical-align: top;">
+               Wallet Money <label th:text="${walletAmount}"></label>
+            </p>
+
+              <button type="submit" name="payButton"> Pay with wallet </button>
+            <p>
+                <label th:text="${payMessage}" ></label>
+            </p>
+
+        </div>
+    </form>
+</div>
+
+
+
+</body>
+</html>

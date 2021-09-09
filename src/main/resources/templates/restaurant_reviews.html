@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Reviews</title>
+    <style>
+        .container-fluid{
+            text-align: center;
+        }
+
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid text-center">
+    <form th:action="@{/restaurant_reviews}"  method="post" >
+        <div class="border border-secondary p-3 rounded">
+            <div class="contentContainer">
+                <h1>Reviews for the places visited</h1>
+            </div>
+            <table class="center">
+                <thead>
+                <tr>
+                    <th>Reviewed Date</th>
+                    <th>Comments</th>
+                    <th>Ratings</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="restaurantReviews : ${restaurantReviews}">
+                    <tr>
+                        <td th:text="${restaurantReviews.getReviewedDate()}"></td>
+                        <td th:text="${restaurantReviews.getComments()}"></td>
+                        <td th:text="${restaurantReviews.getRatings()}"></td>
+                    </tr>
+                </th:block>
+
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>
+</body>
+</html>

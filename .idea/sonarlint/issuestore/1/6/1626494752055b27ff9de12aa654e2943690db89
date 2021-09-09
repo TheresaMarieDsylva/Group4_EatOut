@@ -1,0 +1,16 @@
+
+_
+java:S1120
+"DMake this line start after 2 spaces to indent the code consistently.(‡Šè¸þÿÿÿÿ
+`	java:S112
+"FDefine and throw a dedicated exception instead of using a generic one.(‡Šè¸þÿÿÿÿ
+[	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(þ³õ“
+\
+java:S1106	"AMove this left curly brace to the beginning of next line of code.(ÇðÙÌøÿÿÿÿ
+`	java:S103"KSplit this 121 characters long line (which is greater than 120 authorized).(þ³õ“
+[	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¼„ŠÒ
+Z	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(ƒÿØ
+[	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Àçšâ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Þ“À®ýÿÿÿÿ
+l	java:S103
+"KSplit this 168 characters long line (which is greater than 120 authorized).(‡Šè¸þÿÿÿÿ8ŠÿÝ„‹/

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Menu Item</title>
+    <meta charset="UTF-8">
+    <meta name="Description" content="Menu Item add page">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+</head>
+<body>
+<div id="menu-item-add-content">
+    <h3>Add Menu Item</h3>
+    <form name="menu_item_add_form" id="menu_item_add_form" method="post">
+        <table>
+            <tr>
+                <td><label class="form-control" for="menuItemName">Menu Item Name</label></td>
+                <td><input class="form-control" type="text" id="menuItemName" name="menuItemName" required></td>
+            </tr>
+            <tr>
+                <td><label class="form-control" for="menuItemDescription">Menu Item Description</label></td>
+                <td><input class="form-control" type="text" id="menuItemDescription" name="menuItemDescription" required></td>
+            </tr>
+            <tr>
+                <td><label class="form-control" for="itemPrice">Menu Item Price</label></td>
+                <td><input class="form-control" type="text" id="itemPrice" name="itemPrice" required></td>
+            </tr>
+            <tr>
+                <td><label class="form-control" for="itemQuantity">Menu Item Quantity</label></td>
+                <td><input class="form-control" type="text" id="itemQuantity" name="itemQuantity" required></td>
+            </tr>
+        </table>
+        <br>
+        <button type="submit" id="menu_item_addition_form" name="menu_item_addition_form">Add Menu Item</button>
+        <br>
+        <br>
+        <p>
+            <label th:text="${menuItemAdditionMessage}"></label>
+        </p>
+    </form>
+</div>
+</body>
+</html>

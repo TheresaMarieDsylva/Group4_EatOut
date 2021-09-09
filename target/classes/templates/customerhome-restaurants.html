@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<title>EatOut Customer home</title>
+<h3>
+	Welcome <label th:text="${session.username}"></label>
+</h3>
+
+<style>
+.checked {
+	color: orange;
+}
+
+body {
+	font-family: Arial;
+}
+
+/* Style the tab */
+.tab {
+	overflow: hidden;
+	width: 60%;
+	border: 3px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 23px;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+	background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+	background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+	display: none;
+	padding: 11px 69px;
+	border: 1px solid #ccc;
+	border-top: none;
+}
+
+.rating {
+    display: flex;
+    margin-top: -10px;
+    flex-direction: row-reverse;
+    margin-left: -4px;
+    float: left
+}
+
+.rating>input {
+    display: none
+}
+
+.rating>label {
+    position: relative;
+    width: 19px;
+    font-size: 25px;
+    color: #ff0000;
+    cursor: pointer
+}
+
+.rating>label::before {
+    content: "\2605";
+    position: absolute;
+    opacity: 0
+}
+
+.rating>label:hover:before,
+.rating>label:hover~label:before {
+    opacity: 1 !important
+}
+
+.rating>input:checked~label:before {
+    opacity: 1
+}
+
+.rating:hover>input:checked~label:before {
+    opacity: 0.4
+}
+</style>
+
+</head>
+
+<body>
+
+	<div class="tab" align="center">
+		<span> <a href="/" th:href="@{/customer-homepage}"><button
+					class="tablinks">Restaurants</button> </a></span> <span> <a href="/"
+			th:href="@{/restaurant-login}"><button class="tablinks">Membership
+				</button></a></span> <span> <a href="/" th:href="@{/admin-login}"><button
+					class="tablinks">My Account</button></a></span> <span> <a href="/"
+			th:href="@{/admin-login}"><button class="tablinks">Report
+					a problem</button></a></span>
+	</div>
+	<br>
+	<br>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-8 ">
+				<div class="card">
+					<div class=" card-header ">
+						<h3>
+							<span th:text="${restaurant.restaurantName}"></span>
+						</h3>
+					</div>
+					<div class="card-body">
+						<div>
+							<label><b>Address: &nbsp;</b></label> <span
+								th:text="${restaurant.address}"></span>
+						</div>
+						<div>
+							<label><b>City: &nbsp;</b></label> <span
+								th:text="${restaurant.city}"></span>
+						</div>
+						<div>
+							<label><b>Country: &nbsp;</b></label> <span
+								th:text="${restaurant.country}"></span>
+						</div>
+						<div>
+							<label><b>Phone: &nbsp;</b></label> <span
+								th:text="${restaurant.phoneNumber}"></span>
+						</div>
+						<div>
+							<label><b>Email: &nbsp;</b></label> <span
+								th:text="${restaurant.email}"></span>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col col-lg-7">
+								<label><b>Cuisine: &nbsp;</b></label> <span
+									th:text="${restaurant.restaurantAdditionalDtls.cuisineType}"></span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col col-lg-7">
+								<label><b>Cost: &nbsp; </b></label> <span
+									th:text="${restaurant.restaurantAdditionalDtls.approxPrice}"></span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col col-lg-7">
+								<label><b>Comments: &nbsp; </b></label> <span
+									th:text="${restaurant.restaurantAdditionalDtls.additionalComments}"></span>
+							</div>
+						</div>
+
+					</div>
+					<div class="card-body">
+						<div>
+							<label><b>Booking Options: &nbsp;</b></label>
+						</div>
+						<div class="row">
+							<div class="col col-lg-2">
+								<label>Dining:</label> <span
+									th:if="${restaurant.restaurantAdditionalDtls.diningOption}"
+									style="color: green">&#10004;</span> <span
+									th:unless="${restaurant.restaurantAdditionalDtls.diningOption}"
+									style="color: red">&#10006;</span>
+							</div>
+							<div class="col col-lg-3">
+								<label>Take away:</label> <span
+									th:if="${restaurant.restaurantAdditionalDtls.takeAwayOption}"
+									style="color: green">&#10004;</span> <span
+									th:unless="${restaurant.restaurantAdditionalDtls.takeAwayOption}"
+									style="color: red">&#10006;</span>
+							</div>
+							<br>
+						</div>
+
+					</div>
+					<div class="card-body">
+						<div>
+							<label><b>Seating Options: &nbsp;</b></label>
+						</div>
+						<div class="row">
+							<div class="col col-lg-2">
+								<label>Normal :</label> <span
+									th:if="${restaurant.restaurantAdditionalDtls.commonSeatsOption}"
+									style="color: green">&#10004;</span> <span
+									th:unless="${restaurant.restaurantAdditionalDtls.commonSeatsOption}"
+									style="color: red">&#10006;</span>
+							</div>
+							<div class="col col-lg-2">
+								<label>Terrace :</label> <span
+									th:if="${restaurant.restaurantAdditionalDtls.terraceSeatsOption}"
+									style="color: green">&#10004;</span> <span
+									th:unless="${restaurant.restaurantAdditionalDtls.terraceSeatsOption}"
+									style="color: red">&#10006;</span>
+							</div>
+							<div class="col col-lg-2">
+								<label>Window :</label> <span
+									th:if="${restaurant.restaurantAdditionalDtls.windowSeatsOption}"
+									style="color: green">&#10004;</span> <span
+									th:unless="${restaurant.restaurantAdditionalDtls.windowSeatsOption}"
+									style="color: red">&#10006;</span>
+							</div>
+							<div class="col col-lg-2">
+								<label>Lounge :</label> <span
+									th:if="${restaurant.restaurantAdditionalDtls.loungeSeatsOption}"
+									style="color: green">&#10004;</span> <span
+									th:unless="${restaurant.restaurantAdditionalDtls.loungeSeatsOption}"
+									style="color: red">&#10006;</span>
+							</div>
+							<div class="col col-lg-2">
+								<label>Private :</label> <span
+									th:if="${restaurant.restaurantAdditionalDtls.privateSeatsOption}"
+									style="color: green">&#10004;</span> <span
+									th:unless="${restaurant.restaurantAdditionalDtls.privateSeatsOption}"
+									style="color: red">&#10006;</span>
+							</div>
+						</div>
+					</div>
+					<div class="card-body"
+						th:if="${restaurant.restaurantAdditionalDtls.openingTime != null}">
+						<div>
+							<label><b>Timings: &nbsp;</b></label>
+						</div>
+						<div class="row">
+							<div class="col col-lg-4">
+								<label>Opening time:</label> <span
+									th:if="${restaurant.restaurantAdditionalDtls.openingTime != null}"
+									th:text="${restaurant.restaurantAdditionalDtls.openingTime}"></span>
+							</div>
+							<div class="col col-lg-4">
+								<label>Closing Time:</label> <span
+									th:if="${restaurant.restaurantAdditionalDtls.closingTime != null}"
+									th:text="${restaurant.restaurantAdditionalDtls.closingTime}"></span>
+							</div>
+							<br>
+						</div>
+
+					</div>
+				</div>
+				<br> <br>
+				<div class="card">
+					<div class=" card-header ">
+						<h3>Reviews</h3>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col col-lg-3">
+								<label><b>Total Reviews:</b></label> <span
+									th:text="${#lists.size(restaurant.reviewlist)}"></span>
+							</div>
+							<div class="col col-lg-5">
+								<label><b>Overall Ratings:</b></label> <span
+									th:each="i : ${#numbers.sequence(1, restaurant.overallRatings)}"
+									class="fa fa-star checked"></span> <span
+									th:if="${restaurant.overallRatings != 5.0}"
+									th:each="i : ${#numbers.sequence(1, 5.0-restaurant.overallRatings)}"
+									class="fa fa-star "></span>
+							</div>
+							<br>
+						</div>
+					</div>
+
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"
+							th:each="review : ${restaurant.reviewlist}">
+							<div class="row">
+								<div class="col col-lg-4">
+									<label><b>User:</b></label> <span th:text="${review.customerName}"></span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col col-lg-4">
+									<label><b>Comment:</b></label> <span th:text="${review.comments}"></span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col col-lg-4">
+									<label><b>Ratings: </b></label> <span
+										th:each="i : ${#numbers.sequence(1, review.ratingsValue)}"
+										class="fa fa-star checked"></span> <span
+										th:if="${review.ratingsValue != 5.0}"
+										th:each="i : ${#numbers.sequence(1, 5.0-review.ratingsValue)}"
+										class="fa fa-star "></span> <br>
+								</div>
+
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			
+			<div class="col-lg-4 col-md-4 ">
+				<div class="card">
+					<div class=" card-header ">
+						<h4>Add a comment</h4>
+					</div>
+					<div class="card-body">
+					<form th:action="@{/addReviews}" th:object="${reviews}" method="post" >
+					<input type="hidden" th:field="*{restaurantId}" >
+					<input type="hidden" th:field="*{customerId}" >
+							<div class="rating"> 
+								<input type="radio" name="rating" value="5" id="5" th:field="*{ratingsValue}" ><label for="5">☆</label> 
+								<input type="radio" name="rating" value="4" id="4" th:field="*{ratingsValue}" ><label for="4">☆</label> 
+								<input type="radio" name="rating" value="3" id="3" th:field="*{ratingsValue}" ><label for="3">☆</label> 
+								<input type="radio" name="rating" value="2" id="2" th:field="*{ratingsValue}" ><label for="2">☆</label>
+								 <input type="radio" name="rating" value="1" id="1" th:field="*{ratingsValue}" ><label for="1">☆</label> 
+							 </div>
+               				 <div class="comment-area"> <textarea class="form-control" placeholder="what is your view?" rows="4" th:field="*{comments}">
+               				 </textarea> </div><br>
+               				 <button class="btn btn-success send btn-sm">Submit</button>
+					</form>
+					</div>
+					
+									
+				</div>
+				<p>
+				<div class="subnav-content">
+					<a href="/" th:href="@{'/menu-customer/' + ${restaurantId}}">Order Food</a>
+				</div>
+				</p>
+				<p>
+				<div class="subnav-content">
+					<a href="/" th:href="@{'/book_table/' + ${restaurantId}}">Book Table</a>
+				</div>
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<br>
+	<br>
+
+
+
+
+</body>
+</html>

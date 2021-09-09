@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+        }
+
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .navbar a {
+            float: left;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .subnav {
+            float: left;
+            overflow: hidden;
+        }
+
+        .subnav .subnavbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+
+        .navbar a:hover, .subnav:hover .subnavbtn {
+            background-color: green;
+        }
+
+        .subnav-content {
+            display: none;
+            position: absolute;
+            left: 0;
+            background-color: green;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .subnav-content a {
+            float: left;
+            color: white;
+            text-decoration: none;
+        }
+
+        .subnav-content a:hover {
+            background-color: #eee;
+            color: black;
+        }
+
+        .subnav:hover .subnav-content {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="/" th:href="@{/restaurant-home}">Home</a>
+    <div class="subnav">
+        <button class="subnavbtn">Menu<i class="fa fa-caret-down"></i></button>
+        <div class="subnav-content">
+            <a href="/" th:href="@{'/menuDisplay/' + ${restaurantId}}">Display Menu</a>
+<!--            <a href="/" th:href="@{/menuDisplay}">Display Menu</a>-->
+            <a href="/" th:href="@{'/menuItemAdd/' + ${restaurantId}}">Add Item</a>
+            <a href="/" th:href="@{'/menuItemDelete/' + ${restaurantId}}">Delete Item</a>
+        </div>
+    </div>
+    <div class="subnav">
+        <button class="subnavbtn">Membership <i class="fa fa-caret-down"></i></button>
+        <div class="subnav-content">
+            <a href="/" th:href="@{/membership}">View membership</a>
+        </div>
+    </div>
+    <div class="subnav">
+        <button class="subnavbtn">Deals and Offers <i class="fa fa-caret-down"></i></button>
+        <div id="viewDeal" class="subnav-content">
+            <a href="/" th:href="@{'/deals/'+ ${restaurantId}}">View Deals</a>
+            <a href="/" th:href="@{'/deals/createdeal/'+ ${restaurantId}}">Add new Deal</a>
+        </div>
+    </div>
+
+    <div class="subnav">
+        <button class="subnavbtn">Table Booking<i class="fa fa-caret-down"></i></button>
+        <div class="subnav-content">
+            <a href="/">View Table Booking</a>
+            <a href="/">Update Table Booking</a>
+        </div>
+    </div>
+
+    <div class="subnav">
+        <button class="subnavbtn">Restaurant Details<i class="fa fa-caret-down"></i></button>
+        <div class="subnav-content">
+            <a th:href="@{'/restaurant-details/' + ${restaurant.restaurantId}}">Restaurant details</a>
+            <a href="/" th:href="@{'/restaurant_booking_history/' + ${restaurantId}}">Booking History</a>
+            <a href="/" th:href="@{'/restaurant_order_history/' + ${restaurantId}}">Order History</a>
+            <a href="/" th:href="@{'/restaurant_reviews/' + ${restaurantId}}">Reviews and Ratings</a>
+            <a href="/" th:href="@{'/restaurant_profile/' + ${restaurantId}}">Restaurant Profile</a>
+        </div>
+    </div>
+</div>
+<div style="padding:0 16px">
+    <h3>Welcome to restaurant home page!</h3>
+</div>
+</body>
+</html>

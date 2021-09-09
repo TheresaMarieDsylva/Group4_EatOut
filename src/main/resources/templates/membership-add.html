@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="container-fluid text-center">
+    <div class="border border-secondary p-3 rounded">
+        <div class="contentContainer">
+            <h1>Add Membership</h1>
+        </div>
+        <div>
+            <table id="myTable">
+                <tr>
+                    <td><label class="form-control" for="membership-name">Membership Name</label></td>
+                    <td><input type="text" id="membership-name" name="membership-name"
+                               th:name="membershipName" class="form-control" required/></td>
+                </tr>
+                <tr>
+                    <td><label class="form-control" for="dining">Dining</label></td>
+                    <td><input type="text" id="dining" name="dining" th:name="dining" class="form-control"
+                               placeholder="%" required/></td>
+                </tr>
+                <tr>
+                    <td><label class="form-control" for="takeaway">Takeaway</label></td>
+                    <td><input type="text" id="takeaway" name="takeaway" th:name="takeaway" class="form-control"
+                               placeholder="%" required/></td>
+                </tr>
+                <tr>
+                    <td>
+                        <button id="btnSubmit" type="submit" onclick="submitForm()"> Submit</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function submitForm() {
+        let membership = {
+            name: $('#membership-name').val(),
+            dining: $('#dining').val(),
+            takeaway: $('#takeaway').val()
+        }
+
+        $.ajax({
+            url: "/membership/submit",
+            type: "POST",
+            data: membership,
+            success: function (row) {
+                console.log(row);
+                if (row > 0) {
+                    alert('Successfully created !');
+                    setTimeout(function () {
+                        location.href= "/membership";
+                    }, 1000);
+                } else if (row <= 0) {
+                    alert('Error in updating !')
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

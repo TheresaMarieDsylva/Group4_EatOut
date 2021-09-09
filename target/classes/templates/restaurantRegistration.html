@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <title>Restaurant Registration</title>
+    <meta charset="UTF-8">
+    <meta name="Description" content="Restaurant Registration page">
+</head>
+<body>
+<div id="restaurant-registration-content">
+    <h3>Restaurant Registration</h3>
+    <form name="restaurant-register-form" id="restaurant_register_form" th:action="@{/restaurantRegistration}" method="post" >
+        <table>
+            <tr>
+                <td><label for="restaurant-name">Restaurant Name</label></td>
+                <td><input type="text" id="restaurant-name" name="restaurant_name" required></td>
+            </tr>
+            <tr>
+                <td><label for="restaurant-phone-number">Phone Number</label></td>
+                <td><input type="tel" id="restaurant-phone-number" name="restaurant_phone_number" required ></td>
+            </tr>
+            <tr>
+                <td><label for="restaurant_address">Full Address</label></td>
+                <td><input type="text" id="restaurant_address" name="restaurant_address" required></td>
+            </tr>
+            <tr>
+                <td><label for="restaurant_city">City</label></td>
+                <td><input type="text" id="restaurant_city" name="restaurant_city" required></td>
+            </tr>
+            <tr>
+                <td><label for="restaurant_country">Country</label></td>
+                <td><input type="text" id="restaurant_country" name="restaurant_country" required></td>
+            </tr>
+            <tr>
+                <td><label for="restaurant_email">Email</label></td>
+                <td><input type="email" id="restaurant_email" name="restaurant_email" required></td>
+            </tr>
+            <tr>
+                <td><label for="restaurant_password">Password</label></td>
+                <td><input type="password" id="restaurant_password" name="restaurant_password" required></td>
+            </tr>
+            <tr>
+                <td><label for="restaurant_repeat_password">Confirm Password</label></td>
+                <td><input type="password" id="restaurant_repeat_password" name="restaurant_repeat_password" required></td>
+            </tr>
+        </table>
+        <button type="submit" id="restaurant-register-form" name="restaurant-register-form" >Register</button>
+        <br>
+        <p>
+            <label th:text="${restaurantRegisterMessage}" ></label>
+        </p>
+
+        <br>
+    </form>
+</div>
+</body>
+</html>

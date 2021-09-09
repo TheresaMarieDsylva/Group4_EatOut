@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Password Reset OTP</title>
+    <style>
+        .container-fluid{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <form  th:action="@{/otp_pass_reset}" method="post" >
+        <div class="border border-secondary p-3 rounded">
+            <p >
+                <input type="text"  name="otp" class="form-control" placeholder="Enter OTP"  required autofocus/>
+                <button type="submit" name="form2Submit"> Verify </button>
+            </p>
+            <p>
+                <label th:text="${displayOTPMessage}" ></label>
+            </p>
+            <p>
+                 <p><span> <a  th:href="@{/login}">Login</a></span></p>
+            </p>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

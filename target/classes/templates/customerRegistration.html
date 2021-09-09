@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Registration</title>
+    <meta charset="UTF-8">
+    <meta name="Description" content="Customer Registration page">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+</head>
+<body>
+<div id="customer-registration-content">
+    <h3>Customer Registration</h3>
+    <form name="customer-register-form" id="customer_register_form" th:action="@{/customerRegistration}" method="post">
+        <table>
+            <tr>
+                <td><label for="customer-first-name">First Name</label></td>
+                <td><input type="text" id="customer-first-name" name="customer_first_name" required></td>
+            </tr>
+            <tr>
+                <td><label for="customer-last-name">Last Name</label></td>
+                <td><input type="text" id="customer-last-name" name="customer_last_name" required></td>
+            </tr>
+            <tr>
+                <td><label for="customer-phone-number">Phone Number</label></td>
+                <td><input type="tel" id="customer-phone-number" name="customer_phone_number" required></td>
+            </tr>
+            <tr>
+                <td><label for="customer-city">City</label></td>
+                <td><input type="text" id="customer-city" name="city" required></td>
+            </tr>
+            <tr>
+                <td><label for="customer-country">Country</label></td>
+                <td><input type="text" id="customer-country" name="country" required></td>
+            </tr>
+            <tr>
+                <td><label for="customer-email">Email</label></td>
+                <td><input type="email" id="customer-email" name="customer_email"  required></td>
+            </tr>
+            <tr>
+                <td><label for="customer-password">Password</label></td>
+                <td><input type="password" id="customer-password" name="customer_password" required></td>
+            </tr>
+            <tr>
+                <td><label for="customer_repeat_password">Confirm Password</label></td>
+                <td><input type="password" id="customer_repeat_password" name="customer_repeat_password" required></td>
+            </tr>
+        </table>
+        <button type="submit" id="customer-register-form" name="customer-register-form" >Register</button>
+        <br>
+        <p>
+            <label th:text="${customerRegisterMessage}" ></label>
+        </p>
+        <br>
+    </form>
+</div>
+</body>
+</html>

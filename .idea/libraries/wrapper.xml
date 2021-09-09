@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="wrapper">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/group4-eatOut/.mvn/wrapper" />
+      <root url="file://$PROJECT_DIR$/group4-eatOut/src/main/java" />
+      <root url="file://$PROJECT_DIR$/group4-eatOut/src/test/java" />
+    </SOURCES>
+  </library>
+</component>

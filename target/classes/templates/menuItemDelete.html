@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Delete Menu Item</title>
+    <meta charset="UTF-8">
+    <meta name="Description" content="Menu Item Delete page">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+</head>
+<body>
+<div id="menu-item-delete-content">
+    <h3>Delete Menu Item</h3>
+    <form name="menu_item_delete_form" id="menu_item_delete_form" method="post">
+        <table>
+            <tr>
+                <td><label class="form-control" for="menuItemName">Menu Item Name</label></td>
+                <td><input class="form-control" type="text" id="menuItemName" name="menuItemName" required></td>
+            </tr>
+        </table>
+        <br>
+        <button type="submit" id="menu_item_deletion_form" name="menu_item_deletion_form" >Delete Menu Item</button>
+        <br>
+        <br>
+        <p>
+            <label th:text="${menuItemDeletionMessage}"></label>
+        </p>
+    </form>
+</div>
+</body>
+</html>

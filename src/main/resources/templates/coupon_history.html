@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Coupons used</title>
+    <style>
+        .container-fluid{
+            text-align: center;
+        }
+
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid text-center">
+<form th:action="@{/coupon_history}"   method="post" >
+    <div class="border border-secondary p-3 rounded">
+        <div class="contentContainer">
+            <h1>Coupons user so far</h1>
+        </div>
+<table class="center">
+    <thead>
+    <tr>
+        <th>Coupon Name</th>
+        <th>Coupon Code</th>
+        <th>Coupon Amount</th>
+        <th>Coupon Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="coupon : ${couponsUsed}">
+        <tr>
+
+            <td th:text="${coupon.getCouponName()}">...</td>
+            <td th:text="${coupon.getCouponCode()}">...</td>
+            <td th:text="${coupon.getAmount()}">...</td>
+            <td th:text="${coupon.getDescription()}">...</td>
+        </tr>
+    </th:block>
+
+    </tbody>
+</table>
+    </div>
+</form>
+</div>
+</body>
+</html>

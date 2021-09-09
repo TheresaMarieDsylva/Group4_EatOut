@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage restaurant request</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<div id="requestPage" class="container">
+    <h4> Manage restaurant requests </h4>
+    <span id="approve-btn">
+            <button onclick="approveItems()">Approve</button>
+    </span>
+    <span id="reject-btn">
+            <button onclick="rejectItems()">Reject</button>
+        </span>
+    <table id="requestTable">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Restaurant ID</th>
+            <th>Restaurant Name</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="request : ${requestLst}">
+            <tr id="row-item">
+                <td>
+                    <input type="checkbox" id="checkboxId" name="checkbox">
+                    <label for="checkboxId"></label>
+                </td>
+                <td th:text="${request.getRestaurantId()}">...</td>
+                <td th:text="${request.getRestaurantName()}">...</td>
+                <td th:text="${request.getCity()}">...</td>
+                <td th:text="${request.getCountry()}">...</td>
+                <td th:text="${request.getEmail()}">...</td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+
+    function approveItems() {
+        let restIds = new Array();
+        const table = document.getElementById('requestTable');
+        $('#requestTable [type="checkbox"]').each(function (i, chk) {
+            if (chk.checked) {
+                restIds.push(table.rows.item(i + 1).cells.item(1).innerText);
+            }
+        });
+        console.log('restaurant Ids' + restIds);
+        if (restIds.length > 0) {
+            let ids = restIds.toString();
+            console.log('Ids' + ids);
+
+            $.ajax({
+                url: "/restaurant-req/approve",
+                type: "POST",
+                data: {
+                    items: ids
+                },
+                success: function (row) {
+                    console.log(row);
+                    if (row > 0) {
+                        alert('Successfully updated the requests!')
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1000);
+                    } else if (row <= 0) {
+                        alert('Error in updating requests!')
+                    }
+                }
+            });
+        }
+    }
+
+    function rejectItems() {
+        let rejIds = new Array();
+        const table = document.getElementById('requestTable');
+        $('#requestTable [type="checkbox"]').each(function (i, chk) {
+            if (chk.checked) {
+                rejIds.push(table.rows.item(i + 1).cells.item(1).innerText);
+            }
+        });
+        console.log(rejIds);
+        if (rejIds.length > 0) {
+            let ids = rejIds.toString();
+            $.ajax({
+                url: "/restaurant-req/reject",
+                type: "POST",
+                data: {
+                    items: ids
+                },
+                success: function (row) {
+                    console.log(row);
+                    if (row > 0) {
+                        alert('Successfully updated the requests!')
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1000);
+                    } else if (row <= 0) {
+                        alert('Error in updating requests!')
+                    }
+                }
+            });
+        }
+    }
+</script>
+</body>
+</html>
